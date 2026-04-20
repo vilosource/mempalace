@@ -1656,12 +1656,12 @@ def handle_request(request):
                 "id": req_id,
                 "result": {"content": [{"type": "text", "text": json.dumps(result, indent=2)}]},
             }
-        except Exception:
+        except Exception as e:
             logger.exception(f"Tool error in {tool_name}")
             return {
                 "jsonrpc": "2.0",
                 "id": req_id,
-                "error": {"code": -32000, "message": "Internal tool error"},
+                "error": {"code": -32000, "message": f"Internal tool error: {e}"},
             }
 
     # Notifications (missing id) must never get a response
